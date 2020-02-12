@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-# from collections import OrderedDict
 import cv2
 
 
@@ -17,7 +16,6 @@ class mv_gan(nn.Module):
         self.cycle_loss_coef = alpha
         self.beta = beta
         hidden_layer = 512
-        # hidden_layer = 1024
         # the first view
         self.generator_g_1 = nn.Sequential(nn.Linear(dim_in_1, hidden_layer), nn.ReLU(inplace=True),
                                            nn.Linear(hidden_layer, hidden_layer), nn.ReLU(inplace=True),
@@ -45,7 +43,6 @@ class mv_gan(nn.Module):
         self.discriminator = nn.Sequential(nn.Linear(dim_hidden, 512), nn.BatchNorm1d(512), nn.ReLU(inplace=True),
                                            nn.Linear(512, 256), nn.BatchNorm1d(256), nn.ReLU(inplace=True),
                                            nn.Linear(256, 1), nn.Sigmoid())
-        # self.classifier.name = 'classifier'
         self.hid_layer_1.name = 'classifier'
         self.hid_layer_2.name = 'classifier'
         self.classifier.name = 'classifier'
@@ -112,7 +109,7 @@ class mv_gan(nn.Module):
         loss = self.cycle_loss_coef * cycle_loss
         return loss
 
-    # the cross cycle-consistency loss
+    # the cross reconstruction loss
     def cycle_loss_3(self, x_1, x_2, fake_x_1, fake_x_2, fake_x_1_z2, fake_x_2_z1, z_1, z_2):
         loss_x_1 = torch.mean(torch.abs(fake_x_1 - x_1))
         loss_x_2 = torch.mean(torch.abs(fake_x_2 - x_2))

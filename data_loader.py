@@ -21,10 +21,6 @@ class load_mnist():
                 self.view_1 = data['view_1'][:num] / 255
                 self.label = self.label_encoding(data['label'][0, :num])
             else:
-                if not os.path.isdir('./noise'):
-                    os.mkdir('./noise')
-                if not os.path.isdir('./rotated'):
-                    os.mkdir('./rotated')
                 mnist = tf.keras.datasets.mnist
                 (x_train, y_train), (_, _) = mnist.load_data()
                 x_train = x_train

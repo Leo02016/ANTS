@@ -1,4 +1,5 @@
-# DeepMuse
+# ANTS
+Code for paper "Deep Co-Attention Network for Multi-View Subspace Learning"
 
 ## Environment
 * Python 3.7
